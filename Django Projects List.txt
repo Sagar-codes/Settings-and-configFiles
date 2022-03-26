@@ -1,0 +1,20 @@
+0.Blog Post WebAPI (Working)
+1.Employee Management System
+2.Delivery(movers and packers) 
+3.College Assignment management system
+4.Doctor Finder And Appointment Booking
+5.Tourism Management System Tour and Travels
+6.Movie Ticket Booking System OR Event Management LIkE Ontick
+7.Django || Smart Health Disease Prediction System Project  Using Machine Learning
+8.School Management Django Project with student attendance monitoring 
+9.Online Job Portal
+10.Inventory Management System LIke Pennco
+11.Returant Table Reservation
+12.Online FooD ordering POrtal for All Cloud Kitchen
+13.Airline Reservation System OR ALL Travel Agency
+14.
+15.
+16.
+17.
+18.
+19.

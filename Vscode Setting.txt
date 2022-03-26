@@ -1,0 +1,49 @@
+{
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.jediEnabled": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.startupEditor": "newUntitledFile",
+    "explorer.confirmDragAndDrop": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "[html]": {
+        "editor.defaultFormatter": ""
+    },
+    "terminal.integrated.rendererType": "dom",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.cursorBlinking": "expand",
+
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#f8c317"
+    },
+    "editor.cursorStyle": "line",
+    "editor.cursorWidth": 3,
+    "editor.cursorSmoothCaretAnimation": true,
+    "python.showStartPage": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook",
+        "*.sqlite3": "default"
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "python.languageServer": "Jedi",
+    "thunder-client.codeSnippetLanguage": "pythn-httpclient",
+    "workbench.colorTheme": "Material Dark Soda",
+    "workbench.sideBar.location": "right",
+    "editor.wordWrap": "on",
+    "files.autoSave": "onFocusChange",
+    "terminal.integrated.sendKeybindingsToShell": true
+
+}

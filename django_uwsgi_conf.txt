@@ -1,0 +1,219 @@
+terminal:
+# install uwsgi if not exists.
+pip3 install uwsgi
+
+# check the path of uwsgi.
+which uwsgi
+
+# before config uwsgi run in terminal and check is it running properly or not.
+uwsgi --http :8000 --home path/to/the/virtualenv --chdir path/to/the/project -w project_name.wsgi
+
+sudo mkdir -p /etc/uwsgi/sites
+
+# create new file extention .ini.
+sudo nano /etc/uwsgi/sites/project_name.ini
+
+=======================================================================
+file:
+
+project_name.ini
+--------------------------------------------------------------------------
+[uwsgi]
+http = :8100
+
+chdir = /var/www/path_to/html/project_name
+
+module = project_name.wsgi:application # take name from project setting 
+
+virtualenv = /var/www/path_to/html/virtualvenv_name
+
+master = true
+
+processes = 5
+
+=======================================================================
+terminal:
+uwsgi --ini /etc/uwsgi/sites/project_name.ini
+	
+/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites
+
+# create that file uwsgi service.
+nano /etc/systemd/system/uwsgi.service
+
+=======================================================================
+file:
+
+uwsgi.service
+--------------------------------------
+[Unit]
+Description=uWSGI Emperor service
+After=syslog.target
+
+[Service]
+ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
+
+=======================================================================
+terminal:
+sudo systemctl daemon-reload
+
+sudo systemctl start uwsgi
+
+sudo systemctl enable uwsgi
+
+output:(example)
+Created symlink /etc/systemd/system/multi-user.target.wants/uwsgi.service → /etc/systemd/system/uwsgi.service.
+
+sudo systemctl status uwsgi
+
+=======================================================================
+to config in nginx server
+=======================================================================
+terminal:
+# install nginx if not exists.
+sudo apt install nginx
+
+# create template for django in nginx if not exists.
+cd /usr/local/vesta/data/templates/web/nginx/php-fpm/
+
+sudo nano filname.tpl
+----------------------------------------------------
+server {
+    listen      %ip%:%web_port%;
+    server_name %domain_idn% %alias_idn%;
+    return 301 https://$host$request_uri;
+}
+
+=======================================================================
+
+sudo nano filname.stpl
+----------------------------------------------------
+server {
+    listen IP_Address:443 ssl;
+    server_name IP_Address or website_name;
+    root        path/to/the/project;
+
+    access_log  /var/log/nginx/domains/website_name.log combined;
+    access_log  /var/log/nginx/domains/website_name.bytes bytes;
+    error_log   /var/log/nginx/domains/website_name.error.log error;
+
+    ssl_certificate      /home/admin/conf/web/ssl.website_name.pem;
+    ssl_certificate_key  /home/admin/conf/web/ssl.website_name.key;
+
+    location / {
+
+          proxy_set_header        Host $host;
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+
+          proxy_pass          http://localhost:8000;
+          proxy_read_timeout  90;
+
+          proxy_redirect      http://localhost:8000 http://IP_Address or website_name/;
+
+        }
+
+    location /static/ {
+        alias /path/to/the/project/static/;
+	}
+
+    location /media/ {
+        alias /path/to/the/project/media/;
+	}
+
+}
+
+=======================================================================
+
+# create new file and config.
+sudo nano /etc/nginx/sites-enabled/file_name.conf
+
+file_name.conf
+--------------------------------------
+server {
+    listen      IP_Address:80;
+    server_name IP_Address or website_name ;
+    return 301 https://$host$request_uri;
+}
+
+=======================================================================
+
+sudo nano /etc/nginx/sites-enabled/file_name.ssl.conf
+
+file_name.ssl.conf
+--------------------------------------
+server {
+    listen IP_Address:443 ssl;
+    server_name IP_Address or website_name;
+    root        path/to/the/project;
+
+    access_log  /var/log/nginx/domains/website_name.log combined;
+    access_log  /var/log/nginx/domains/website_name.bytes bytes;
+    error_log   /var/log/nginx/domains/website_name.error.log error;
+
+    ssl_certificate      /home/admin/conf/web/ssl.website_name.pem;
+    ssl_certificate_key  /home/admin/conf/web/ssl.website_name.key;
+
+    location / {
+
+          proxy_set_header        Host $host;
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+
+          proxy_pass          http://localhost:8000;
+          proxy_read_timeout  90;
+
+          proxy_redirect      http://localhost:8000 http://IP_Address or website_name/;
+
+        }
+
+    location /static/ {
+        alias /path/to/the/project/static/;
+	}
+
+    location /media/ {
+        alias /path/to/the/project/media/;
+	}
+
+}
+
+=======================================================================
+terminal:
+# for ssl(from http to https) process(If needed). 
+sudo add-apt-repository ppa:certbot/certbot
+
+sudo apt install python-certbot-nginx
+
+sudo nginx -t
+
+sudo systemctl reload nginx
+
+sudo ufw status
+
+sudo ufw allow 'Nginx Full'
+
+sudo ufw delete allow 'Nginx HTTP'
+
+sudo certbot --nginx -d website_name
+
+procced as ask:
+enter email (then hit enter)
+
+enter A (then hit enter)
+
+enter Y (then hit enter)
+
+enter 1 or 2 (as asked your choice then hit enter)
+
+then done.....
+
+
