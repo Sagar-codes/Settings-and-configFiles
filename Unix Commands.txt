@@ -1,0 +1,5 @@
+To restart the internet connection:
+
+1.ipconfig /flushdns
+2.ipconfig /release
+3.ipconfig /renew
