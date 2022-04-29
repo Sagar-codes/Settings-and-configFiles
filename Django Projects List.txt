@@ -10,11 +10,11 @@
 9.Online Job Portal
 10.Inventory Management System LIke Pennco
 11.Returant Table Reservation
-12.Online FooD ordering POrtal for All Cloud Kitchen
+12.Online Food ordering POrtal for All Cloud Kitchen
 13.Airline Reservation System OR ALL Travel Agency
-14.
-15.
-16.
-17.
-18.
+14.Generate Id card With Qr code using python or django.
+15.Upload to Digital Ocean or AWS S3 images or any documents.
+16.how to use Jquery datatable in Python projects like cms.
+17.Cms Using Django.
+18.Mobile Application using React and Django api like Zomato.
 19.

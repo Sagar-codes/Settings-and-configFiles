@@ -3,3 +3,12 @@ To restart the internet connection:
 1.ipconfig /flushdns
 2.ipconfig /release
 3.ipconfig /renew
+
+
+To Generate Reports Of HP device:
+
+powercfg/batteryreport  -- battery Reports
+
+powercfg/sleepstudy --sleep study Reports
+
+powercfg/energy   --- energy Reports
